@@ -12,6 +12,8 @@ services:
       MYSQL_PASSWORD: wordpress
     volumes:
       - wp-xdebug-data:/var/lib/mysql
+    ports:
+      - 3306:3306
 
   wp:
     build: .
@@ -25,7 +27,7 @@ services:
       - ./xdebug.ini:/usr/local/etc/php/conf.d/xdebug.ini
       - ./html:/var/www/html/
     ports:
-      - 3000:80
+      - 80:80
 
 volumes:
   wp-xdebug-data:
