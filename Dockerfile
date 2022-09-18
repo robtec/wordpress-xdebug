@@ -1,4 +1,4 @@
-FROM wordpress:5-apache
+FROM wordpress:latest
 
 # Install AND configure Xdebug
 RUN pecl install xdebug \
