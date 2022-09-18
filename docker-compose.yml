@@ -1,0 +1,36 @@
+version: '3'
+
+services:
+
+  db:
+    image: mariadb
+    container_name: wp-xdebug-db
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: wordpress
+      MYSQL_PASSWORD: wordpress
+    volumes:
+      - wp-xdebug-data:/var/lib/mysql
+
+  wp:
+    build: .
+    container_name: wp-xdebug-wp
+    environment:
+      WORDPRESS_DB_HOST: wp-xdebug-db
+      WORDPRESS_DB_USER: wordpress
+      WORDPRESS_DB_PASSWORD: wordpress
+      WORDPRESS_DB_NAME: wordpress
+    volumes:
+      - ./xdebug.ini:/usr/local/etc/php/conf.d/xdebug.ini
+      - ./html:/var/www/html/
+    ports:
+      - 3000:80
+
+volumes:
+  wp-xdebug-data:
+  wp-xdebug-html:
+
+networks:
+  default:
+    name: wp-xdebug-network
